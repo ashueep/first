@@ -1,46 +1,56 @@
-#include<bits/stdc++.h>
+#include<iostream>
 using namespace std;
-int n=4, m=6, dp[(int)1e2+2][(int)1e2+2];
-int dist[10][10] = {
-        {0,20,42,25},
-        {20,0,30,34},
-        {42,30,0,10},
-        {25,34,10,0}
+
+#define INT_MAX 999999
+const int ARR = 1e3;
+int n,m;
+int dist[ARR][ARR] = {
 };
-bool vis[102][102];
-int tsp(int mask, int pos){
-	if(mask == (1<<n) - 1) return dist[pos][0];
-	if(vis[mask][pos]) return dp[mask][pos];
 
-	for(int i = 0 ; i < n ; i++){
-		if(mask & (1<<i) == 0){
-			dp[mask][pos] = min(dp[mask][pos],dist[pos][i] + tsp(mask|(1<<i),i));
-			vis[mask][pos] = true;
-		}
+
+int dp[ARR][ARR];
+
+
+int  tsp(int mask,int pos){
+	
+	if(mask==(1<<n)-1){
+		return dist[pos][0];
 	}
-	return dp[mask][pos];
-}
+	if(dp[mask][pos]!=-1){
+	   return dp[mask][pos];
+	}
 
+	int ans = INT_MAX;
+
+	for(int city=0;city<n;city++){
+
+		if((mask&(1<<city))==0){
+
+			int newAns = dist[pos][city] + tsp( mask|(1<<city), city);
+			ans = min(ans, newAns);
+		}
+
+	}
+	
+	return dp[mask][pos] = ans;
+} 
 
 int main(){
-
-	/*cin >> n;
-
+	cin >> n >> m;
 
 	for(int i = 0 ; i < m ; i++){
 		int x,y,w;
 		cin >> x >> y >> w;
 		dist[x-1][y-1] = w;
 		dist[y-1][x-1] = w;
-	}*/
-
-	for(int i = 0 ; i < 101; i++){
-		for(int j = 0 ; j < 101 ; j++){
-			vis[i][j] = false;
-			dp[i][j] = 1e9;
-		}
 	}
 
-	cout << tsp(1, 0);
+    for(int i=0;i<(1<<n);i++){
+        for(int j=0;j<n;j++){
+            dp[i][j] = -1;
+        }
+    }
+	cout<<tsp(1,0);
 
+return 0;
 }
