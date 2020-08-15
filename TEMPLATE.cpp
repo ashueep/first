@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define ll 	long long int
+#define ll long long int
 #define gof for(long long int i = 0 ; i < n ; i++)
 #define for1(i,s,e) for(long long int i = s ; i < e ; i++)
 #define forr(i,e,s) for(long long int i = e ; i >= s; i--)
