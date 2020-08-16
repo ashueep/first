@@ -4,8 +4,7 @@ using namespace std;
 #define INT_MAX 999999
 const int ARR = 1e3;
 int n,m;
-int dist[ARR][ARR] = {
-};
+int dist[ARR][ARR];
 
 
 int dp[ARR][ARR];
@@ -26,7 +25,7 @@ int  tsp(int mask,int pos){
 
 		if((mask&(1<<city))==0){
 
-			int newAns = dist[pos][city] + tsp( mask|(1<<city), city);
+			int newAns = dist[pos][city] + tsp(mask|(1<<city), city);
 			ans = min(ans, newAns);
 		}
 
